@@ -1,0 +1,15 @@
+ls to see the files in directory
+pwd present working directory
+ifconfig to see all the interfaces available on linux PC
+
+git clone URL
+TO clone the remote repsotory to local repo
+
+TO push the git request
+Install git from https://git-scm.com/downloads
+
+Clone or create the git repo
+Add a files or needed in that folder
+Right click->go to git gui
+You will see all the uncommited item.
+Can commit as needed along with comments

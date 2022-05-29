@@ -1,0 +1,3 @@
+Go to https://www.docker.com/products/docker-desktop/
+Selecte the appropriate download based on your PC
+Install docker
