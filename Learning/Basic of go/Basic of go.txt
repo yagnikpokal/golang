@@ -1,0 +1,71 @@
+Developed by google
+Features
+Fast compilation
+It is simple, safe, conscious
+Support for environment adopting pattern
+Lightweight processing
+Production of statically linked native binaries without external dependencies
+
+Features excluded intentionally
+Support for type inherited
+Support for method or operator overloading
+Support for circular dependencies among packages
+Pointer arithmetics
+Assertions
+Support for generic programming
+
+How program written
+With extension .go
+Can use vi or vin editor
+
+The go compiler
+Install GO in your relevant PC like linux, windows, mac os
+Golang
+ 
+Packages and modules
+Packages are gos way of organizing
+Programs are written in as one or more packages
+Packages are inported from the go package registery
+packages should be focused and perform single thing
+ - argument passing
+ - Drawing graphics
+ - Handling http request
+ 
+Using packages
+import “name”
+ for ex
+import (
+ “name”
+“namespace/packagename”
+)
+ 
+Can import everything using dot (.)
+No need to reference package name in code
+Import can be renamed
+import (
+ . “name”                   // Can importeverything using dot
+pk “namespace/packagename”       // can rename package name with pk
+)
+ 
+ 
+Modules
+Modules are the collection of packages
+Created by using the go.mod file in the root directory of your project
+Can be managed by go cli
+Contain information about your project
+Dependancies, go versions, package info
+All go program have go.mod file
+ 
+Example module
+module example.com/practice
+go 1.17
+require
+(
+   github.com/alexflint/go-arg v1.4.2
+   github.com/fatih/color v1.13.0
+)
+ Hello world program
+import "fmt"
+ func main() {
+ 	fmt.Println("Hello Beautifull world")
+ }
