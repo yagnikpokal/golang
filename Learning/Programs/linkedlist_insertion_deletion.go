@@ -22,6 +22,16 @@ func (l *LinkedList) prepend(n *Node) {
 	l.length++
 }
 
+// deleteWithValue function is used to delete the data of single node in linked list
+func (l *LinkedList) deleteWithValue(value int) {
+	previousToDelete := l.head
+	for previousToDelete.next.data != value {
+		previousToDelete = previousToDelete.next
+	}
+	previousToDelete.next = previousToDelete.next.next
+	l.length--
+}
+
 // We can not print all the linked list without the function
 // We can print the single adress of the linkedlist
 //prepend function will print all the linked list
@@ -32,6 +42,8 @@ func (l LinkedList) printListData() {
 		toPrint = toPrint.next
 		l.length--
 	}
+	fmt.Printf("\n")
+
 }
 
 func main() {
@@ -41,13 +53,14 @@ func main() {
 	// Add the data to linked list
 	//node1 := &Node{data: 48}
 	//node2 := &Node{data: 18}
-	node3 := &Node{data: 16}
+	//	node3 := &Node{data: 16}
 
 	// Print the linked list
 	myList.prepend(&Node{data: 48})
 	myList.prepend(&Node{data: 18})
-	myList.prepend(node3)
-
+	myList.prepend(&Node{data: 16})
+	myList.printListData()
+	myList.deleteWithValue(18)
 	myList.printListData()
 
 }
