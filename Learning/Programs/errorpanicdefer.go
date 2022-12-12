@@ -1,7 +1,8 @@
 package main
 
+import "fmt"
+
 func main() {
-defer func(){
-	
-}
+	BadSPrintln("Hello from the ")
+
 }
