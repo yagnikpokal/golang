@@ -17,6 +17,12 @@ func main() {
 		//fmt.Println(string(j), "repeated", sumcharacter, "times")
 		mymap[string(j)] = sumcharacter
 	}
-	fmt.Println(mymap)
+	fmt.Println(mymap) // To print all the values
+
+	for key, element := range mymap {
+		if element >= 2 {
+			fmt.Println(key, "Present", element, "times") // To print only repeating character
+		}
+	}
 
 }
