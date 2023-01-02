@@ -9,7 +9,7 @@ build:
 run: build
 	@echo Starting...
 	set "DSN=${DSN}"
-	start /min cmd /c ${BINARY_NAME} &
+	start ${BINARY_NAME} &
 	@echo back end started!
 
 clean:
