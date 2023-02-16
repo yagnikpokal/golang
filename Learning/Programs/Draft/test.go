@@ -1,69 +1,30 @@
-// Take array
-// 10000, 100000
-// if it is 5 digit
-
+// fetch multiple
+// Append those user id to slice
+// print the user details
 package main
 
 import (
 	"fmt"
-	"strconv"
+	"io/ioutil"
+	"net/http"
 )
 
 func main() {
-	arr := []int{540, 12345678, 9}
+	userid := []string{"123", "456", "789"}
 
-	for _, num := range arr {
-		if len(strconv.Itoa(num)) <= 5 {
-
-			sum := 0
-			for num > 0 {
-				sum += num % 10
-				num /= 10
-			}
-			for i := num; i > 0; i = i / 10 {
-				sum += i % 10
-			}
-			fmt.Println(sum)
-		} else {
-			product := 1
-			for i := num; i > 0; i = i / 10 {
-				product *= i % 10
-			}
-			fmt.Println(product)
-		}
+	userIDString := stringstrings.Join(userIDs, ",")
+	url := fmt.Sprintf("https://endpoint.com/user/ids=%s", userIDString)
+	resp, err := http.Get(url)
+	if err != nil {
+		panic(err)
 	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		panic(err)
+	}
+
+	data := []string(string(body))
+	fmt.Println(data)
+
 }
-
-/*
-func sumOfnum(n int)int{
-	sum:=0
-	num:=strconv.Itoa(n)
-	for _,digit:=range num{
-		d,_:=strconv.Atoi
-	}
-}
-func main(){
-	number:=[]int{12345,678,9014}
-	//var sum int
-	var mul int
-	for _,n:=range number {
-		if len(number[n]<=5){
-//Do sum of number
-			sum := 0
-			for i := v; i > 0; i = i / 10 {
-				sum += i % 10
-			}
-			fmt.Printf("The sum is %d", v, sum)
-fmt.Println(sum)
-		}else{
-			product :=1
-			for i:=
-			//multiplication
-					product := 1
-			for i := v; i > 0; i = i / 10 {
-				product *= i % 10
-			}
-			fmt.Printf("The multiplication is %d", v, product)
-		}
-	}
-}*/
