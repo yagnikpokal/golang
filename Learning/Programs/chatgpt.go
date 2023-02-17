@@ -11,7 +11,7 @@ import (
 func main() {
 	// Set up the request URL and parameters
 	url := "https://api.openai.com/v1/engines/davinci-codex/completions"
-	apiKey := "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"
+	apiKey := "Your API"
 	prompt := "Pin to pin compatible part for the bq25892"
 
 	// Create the request body as a JSON object
