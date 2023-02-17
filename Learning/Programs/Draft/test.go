@@ -1,30 +1,24 @@
-// fetch multiple
-// Append those user id to slice
-// print the user details
 package main
 
 import (
+	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"net/http"
 )
 
+type Response struct {
+	Choices []struct {
+		Text string `json:"text"`
+	} `json:"choices"`
+}
+
 func main() {
-	userid := []string{"123", "456", "789"}
+	jsonStr := `{"id":"cmpl-6kZ1z4bnN8BHc6cJvTTRmF6CX3xYE","object":"text_completion","created":1676555767,"model":"davinci-codex","choices":[{"text":"\n#what is python\n#what is python\n#what is python\n#what is python\n#what is python\n\n#what is python\n#what is python\n#what is python\n#what is python\n#what is","index":0,"logprobs":null,"finish_reason":"length"}],"usage":{"prompt_tokens":3,"completion_tokens":50,"total_tokens":53}}`
 
-	userIDString := stringstrings.Join(userIDs, ",")
-	url := fmt.Sprintf("https://endpoint.com/user/ids=%s", userIDString)
-	resp, err := http.Get(url)
-	if err != nil {
-		panic(err)
-	}
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		panic(err)
+	var resp Response
+	if err := json.Unmarshal([]byte(jsonStr), &resp); err != nil {
+		fmt.Println("Error unmarshalling JSON:", err)
+		return
 	}
 
-	data := []string(string(body))
-	fmt.Println(data)
-
+	fmt.Println(resp.Choices[0].Text)
 }

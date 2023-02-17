@@ -1,3 +1,3 @@
-module yagnikrendertemplate
+module templatecache
 
 go 1.19
