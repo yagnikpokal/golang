@@ -1,0 +1,199 @@
+{{template "base" .}}
+
+{{define "content" }}
+
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1 class="mt-5">Home</h1>
+                <hr>
+                <a class="btn btn-outline-secondary" href="/login">Login</a>
+                <a class="btn btn-outline-secondary" href="/register">Register</a>
+                <form>
+                <input type="text" id="search-input" placeholder="Search...">
+                <button type="button" onclick="sendSearch(),search()">Search</button>
+                </form>
+                <div id="response"></div>
+           
+                
+<!--
+            </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Quantity</th>
+                            <th>Availability</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>Hi
+                    <tbody id="partsTableBody"></tbody>
+                </table>
+
+        </div>
+    </div>
+    -->
+
+
+                            <div id="tableContainer">
+                                <table id="dataTable" style="display: none;">
+                                    <thead>
+                                    <tr>
+                                        <th>Quantity</th>
+                                        <th>Availability</th>
+                                        <th>Description</th>
+                                        <th>Price</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="tableBody">
+                                    </tbody>
+                                </table>
+                                </div>
+
+{{end}}
+
+{{define "js"}}
+    <script>
+
+    /*
+function sendSearch() {
+  var searchInput = document.getElementById("search-input").value;
+  // send the search input to the Go backend using the fetch API
+  fetch("/search?q=" + searchInput)
+    .then(response => response.json())
+    .then(data => {
+        updateTable(data);
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    });
+}
+*/
+function search() {
+  const query = document.getElementById("search-input").value;
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", "/search?q=" + query, true);
+  xhr.onreadystatechange = function() {
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 302) {
+      window.location.href = this.getResponseHeader("Location");
+    }
+  };
+  xhr.send();
+}
+
+
+function sendSearch() {
+  var searchInput = document.getElementById("search-input").value;
+  // send the search input to the Go backend using the fetch API
+  fetch("/search?q=" + searchInput)
+    .then(response => response.json())
+    .then(data => {
+        updateTable(data);
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    });
+    
+
+
+
+  // Add table to the page
+  var table = document.createElement("table");
+  table.classList.add("table");
+  
+  var thead = document.createElement("thead");
+  var tr = document.createElement("tr");
+  
+  var th1 = document.createElement("th");
+  th1.innerHTML = "Quantity";
+  var th2 = document.createElement("th");
+  th2.innerHTML = "Availability";
+  var th3 = document.createElement("th");
+  th3.innerHTML = "Description";
+  var th4 = document.createElement("th");
+  th4.innerHTML = "Price";
+  
+  tr.appendChild(th1);
+  tr.appendChild(th2);
+  tr.appendChild(th3);
+  tr.appendChild(th4);
+  thead.appendChild(tr);
+  
+  var tbody = document.createElement("tbody");
+  tbody.id = "partsTableBody";
+  
+  table.appendChild(thead);
+  table.appendChild(tbody);
+  
+  document.body.appendChild(table);
+
+  // Make a request to the server to retrieve the data
+  fetch('/parts')
+    .then(response => response.json())
+    .then(data => updateTable(data));
+}
+
+
+ function updateTable(data) {
+    var tableBody = document.getElementById("partsTableBody");
+    for (var i = 0; i < data.length; i++) {
+        var row = document.createElement("tr");
+        var quantityCell = document.createElement("td");
+        var availabilityCell = document.createElement("td");
+        var descriptionCell = document.createElement("td");
+        var priceCell = document.createElement("td");
+
+        // populate the cells with data
+        quantityCell.innerHTML = data[i].Quantity;
+        availabilityCell.innerHTML = data[i].Availability;
+        descriptionCell.innerHTML = data[i].Description;
+        priceCell.innerHTML = data[i].Price;
+
+        // append the cells to the row
+        row.appendChild(quantityCell);
+        row.appendChild(availabilityCell);
+        row.appendChild(descriptionCell);
+        row.appendChild(priceCell);
+
+        // append the row to the table body
+        tableBody.appendChild(row);
+    }
+}
+/*
+fetch("/parts")
+    .then(response => response.json())
+    .then(data => {
+      //  updateTable(data);
+    })
+    .catch(error => {
+        console.error("Error:", error);
+    });
+
+
+    fetch('/api/getTableData')
+  .then(response => response.json())
+  .then(data => {
+    const tableBody = document.getElementById('tableBody');
+
+    data.forEach(rowData => {
+      const row = document.createElement('tr');
+
+      rowData.forEach(cellData => {
+        const cell = document.createElement('td');
+        cell.innerText = cellData;
+        row.appendChild(cell);
+      });
+
+      tableBody.appendChild(row);
+    });
+
+    document.getElementById('dataTable').style.display = 'block';
+  });
+
+*/
+    </script>
+{{end}}
+
