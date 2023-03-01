@@ -1,24 +1,48 @@
+/*
+input = {{1,3},{1,4},{6,8}},{9,10}   output = {{1,4},{6,8},{9,10}} golang program
+*/
+
 package main
 
 import (
-	"encoding/json"
 	"fmt"
+	"sort"
 )
 
-type Response struct {
-	Choices []struct {
-		Text string `json:"text"`
-	} `json:"choices"`
+func mergeIntervals(intervals [][]int) [][]int {
+	if len(intervals) <= 1 {
+		return intervals
+	}
+
+	// sort the intervals by start time
+	sort.Slice(intervals, func(i, j int) bool {
+		return intervals[i][0] < intervals[j][0]
+	})
+
+	merged := make([][]int, 0)
+	merged = append(merged, intervals[0])
+
+	for i := 1; i < len(intervals); i++ {
+		lastMerged := merged[len(merged)-1]
+		if intervals[i][0] <= lastMerged[1] {
+			lastMerged[1] = max(intervals[i][1], lastMerged[1])
+		} else {
+			merged = append(merged, intervals[i])
+		}
+	}
+
+	return merged
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }
 
 func main() {
-	jsonStr := `{"id":"cmpl-6kZ1z4bnN8BHc6cJvTTRmF6CX3xYE","object":"text_completion","created":1676555767,"model":"davinci-codex","choices":[{"text":"\n#what is python\n#what is python\n#what is python\n#what is python\n#what is python\n\n#what is python\n#what is python\n#what is python\n#what is python\n#what is","index":0,"logprobs":null,"finish_reason":"length"}],"usage":{"prompt_tokens":3,"completion_tokens":50,"total_tokens":53}}`
-
-	var resp Response
-	if err := json.Unmarshal([]byte(jsonStr), &resp); err != nil {
-		fmt.Println("Error unmarshalling JSON:", err)
-		return
-	}
-
-	fmt.Println(resp.Choices[0].Text)
+	intervals := [][]int{{1, 3}, {1, 4}, {6, 8}, {9, 10}}
+	merged := mergeIntervals(intervals)
+	fmt.Println(merged)
 }
