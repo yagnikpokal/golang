@@ -1,0 +1,75 @@
+{{template "base" .}}
+
+{{define "content"}}
+
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>This is the home page</h1>
+                <p>This is some text</p>
+            </div>
+        </div>
+    </div>
+
+<h2>HTML Table</h2>
+<table>
+  <tr>
+    <th>Company</th>
+    <th>Contact</th>
+    <th>Country</th>
+  </tr>
+  {{if ne (index .StringMap "Company_1") ""}}
+  <tr>
+    <td>{{index .StringMap "Company_1"}}</td>
+    <td>{{index .StringMap "Contact_1"}}</td>
+    <td>{{index .StringMap "Country_1"}}</td>
+  </tr>
+ 
+  <tr>
+    <td>{{index .StringMap "Company_2"}}</td>
+    <td>{{index .StringMap "Contact_2"}}</td>
+    <td>{{index .StringMap "Country_2"}}</td>
+  </tr>
+  <tr>
+    <td>{{index .StringMap "Company_3"}}</td>
+    <td>{{index .StringMap "Contact_3"}}</td>
+    <td>{{index .StringMap "Country_3"}}</td>
+    <hr>
+  </tr>
+   {{end}}
+
+   <!--   If 4th table is not present then it will be hide by addinng {{if ne (index .StringMap "Company_4") ""}} {{end}}
+  {{if ne (index .StringMap "Company_4") ""}}
+
+    <tr>
+    <td>{{index .StringMap "Company_4"}}</td>
+    <td>{{index .StringMap "Contact_4"}}</td>
+    <td>{{index .StringMap "Country_4"}}</td>
+  </tr>
+  {{end}}
+-->
+    <hr>
+    
+</table>
+
+
+
+{{end}}
